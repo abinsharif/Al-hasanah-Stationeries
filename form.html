@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Order Form</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<nav id="menu">
+		<a href="./index.html#contacts" class="mb">Contact</a>
+		<a href="faq.html" class="mb">FAQ</a>
+		<a href="form.html" class="mb">Order</a>
+		<a href="index.html" class="mb" id="hm">Home</a>
+	</nav>
+	<div id="main">
+		<h1>Order now!</h1>
+		<form id="for">
+			<p>Name</p>
+			<input type="name" name="name" placeholder="Name" id="name">
+			<p>Class</p>
+			<input type="number" min='1' max="9" name="clas" placeholder="Class" id="clas">
+			<p>Product</p>
+			<select id="sta">
+				<option value="pencil">Pencil</option>
+				<option value="eraser">Eraser</option>
+				<option value="sharpner">Sharpner</option>
+				<option value="Pen">Pen</option>
+			</select>
+			<p>Amount</p>
+			<input type="number" min='1' max="24" name="amount" placeholder="1~24" id="amount">
+			<p>Address</p>
+			<input type="text" name="address" placeholder="Address" id="address" style="width:400px; height:60px;">
+			<p>Where do you want to recieve your product ?</p>
+			<select id="ord">
+				<option value="school">School</option>
+				<option value="delivery">Home Delivery</option>
+			</select>
+			<input type="submit" name="submit" id="subm">
+			<p id="er" style="color: red; font-size: 20px;"></p>
+		</form>
+		<a href="index.html" class="btn">Back</a>
+	</div>
+	<script type="text/javascript">
+		const submit = document.getElementById('subm');
+		const err = document.getElementById('er');
+		const name = document.getElementById('name');
+		const clas = document.getElementById('clas');
+
+		err.innerHTML = "";
+		submit.addEventListener('click', () => {
+			if (name == '') {
+				err.innerHTML = "Please fill the name";
+			} else if (number < 1 || number > 9) {
+				err.innerHTML = "Number out of range";
+			} else if (length(address) < 20) {
+				err.innerHTML = "Please give full address";
+			}else {
+				
+			}
+		});
+	</script>
+</body>
+</html>
