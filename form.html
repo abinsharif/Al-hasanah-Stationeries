@@ -37,7 +37,7 @@
 		  </div>
 		</div>
 	  </nav>
-	<!-- After the navbar -->
+<!-- After the navbar -->
 <div id="main">
 	<h1>Order now!</h1>
 	<form id="order-form">
@@ -47,10 +47,13 @@
 	  <input type="number" id="class" name="class" placeholder="Class" min="1" max="9" required>
 	  <p>Product</p>
 	  <select id="product" name="product" required>
-		<option value="pencil">Pencil</option>
-		<option value="eraser">Eraser</option>
-		<option value="sharpner">Sharpner</option>
-		<option value="pen">Pen</option>
+		<option value="Matador High-School Pen">Matador High-School Pen</option>
+		<option value="Fresh All-All-Rounder Pen">Fresh All-All-Rounder Pen</option>
+		<option value="Matador i-teen Rio Pencil">Matador i-teen Rio Pencil</option>
+		<option value="Matador i-teen Erasers">Matador i-teen Erasers</option>
+		<option value="Matador i-teen Sharpners (Small)">Matador i-teen Sharpners (Small)</option>
+		<option value="Exercise Book (Grade A)">Exercise Book (Grade A)</option>
+		<option value="Exercise Book (Grade B)">Exercise Book (Grade B)</option>
 	  </select>
 	  <p>Amount</p>
 	  <input type="number" id="amount" name="amount" placeholder="1~24" min="1" max="24" required>
@@ -102,7 +105,7 @@
 		const xhr = new XMLHttpRequest();
 		xhr.open('POST', 'https://smtpsib-ddee6f22c50b41c2fe155209f75892111664ce6097dae6074671bede5f5408ff-LXJ321ISjKY4ObkH', true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		xhr.send(`to=your-email&subject=New+Order&body=Name:+${name}+Class:+${classValue}+Product:+${product}+Amount:+${amount}+Address:+${address}+Delivery:+${delivery}`);
+		xhr.send(`to=a.binsharif1@gmail.com&subject=New+Order&body=Name:+${name}+Class:+${classValue}+Product:+${product}+Amount:+${amount}+Address:+${address}+Delivery:+${delivery}`);
 
 		// Clear form fields
 		form.reset();
