@@ -69,76 +69,75 @@
 	  <p id="error-message" style="color: red;"></p>
 	</form>
   </div>
-	<script type="text/javascript">
+	<script type="module">
 		import { BREVO_API_KEY } from './env';
+		const form = document.getElementById('order-form');
+		const submitButton = document.getElementById('submit');
+		const errorMessage = document.getElementById('error-message');
 
-const form = document.getElementById('order-form');
-const submitButton = document.getElementById('submit');
-const errorMessage = document.getElementById('error-message');
+		form.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const formData = new FormData(form);
+		const name = formData.get('name');
+		const classValue = formData.get('class');
+		const product = formData.get('product');
+		const amount = formData.get('amount');
+		const address = formData.get('address');
+		const delivery = formData.get('delivery');
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const name = formData.get('name');
-  const classValue = formData.get('class');
-  const product = formData.get('product');
-  const amount = formData.get('amount');
-  const address = formData.get('address');
-  const delivery = formData.get('delivery');
+		// Error handling
+		if (name.trim() === '') {
+			errorMessage.textContent = 'Please enter your name';
+			return;
+		}
+		if (classValue < 1 || classValue > 9) {
+			errorMessage.textContent = 'Please enter a valid class';
+			return;
+		}
+		if (amount < 1 || amount > 24) {
+			errorMessage.textContent = 'Please enter a valid amount';
+			return;
+		}
+		if (address.trim() === '') {
+			errorMessage.textContent = 'Please enter your address';
+			return;
+		}
 
-  // Error handling
-  if (name.trim() === '') {
-    errorMessage.textContent = 'Please enter your name';
-    return;
-  }
-  if (classValue < 1 || classValue > 9) {
-    errorMessage.textContent = 'Please enter a valid class';
-    return;
-  }
-  if (amount < 1 || amount > 24) {
-    errorMessage.textContent = 'Please enter a valid amount';
-    return;
-  }
-  if (address.trim() === '') {
-    errorMessage.textContent = 'Please enter your address';
-    return;
-  }
-
-  // Send email using Brevo SMTP server
-  fetch('https://api.sendinblue.com/v3/smtp/email', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'api-key': BREVO_API_KEY
-    },
-    body: JSON.stringify({
-      'sender': {
-        'name': 'Your Name',
-        'email': 'a.binsharif1@gmail.com'
-      },
-      'to': [
-        {
-          'email': 'a.binsharif1@gmail.com',
-          'name': 'Anas Bin Sharif'
-        }
-      ],
-      'subject': 'New Order',
-      'htmlContent': `Name: ${name}<br>Class: ${classValue}<br>Product: ${product}<br>Amount: ${amount}<br>Address: ${address}<br>Delivery: ${delivery}`
-    })
-  })
-  .then((response) => {
-    if (response.ok) {
-      alert('Email sent successfully!');
-      form.reset();
-      errorMessage.textContent = '';
-    } else {
-      errorMessage.textContent = 'Error sending email';
-    }
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-});
+		// Send email using Brevo SMTP server
+		fetch('https://api.sendinblue.com/v3/smtp/email', {
+			method: 'POST',
+			headers: {
+			'Content-Type': 'application/json',
+			'api-key': BREVO_API_KEY
+			},
+			body: JSON.stringify({
+			'sender': {
+				'name': 'Your Name',
+				'email': 'a.binsharif1@gmail.com'
+			},
+			'to': [
+				{
+				'email': 'a.binsharif1@gmail.com',
+				'name': 'Anas Bin Sharif'
+				}
+			],
+			'subject': 'New Order',
+			'htmlContent': `Name: ${name}<br>Class: ${classValue}<br>Product: ${product}<br>Amount: ${amount}<br>Address: ${address}<br>Delivery: ${delivery}`
+			})
+		})
+		.then((response) => {
+			if (response.ok) {
+			alert('Email sent successfully!');
+			form.reset();
+			errorMessage.textContent = '';
+			} else {
+			errorMessage.textContent = 'Error sending email';
+			}
+		})
+		.catch((error) => {
+			console.error(error);
+		});
+		});
 	</script>
 </body>
 </html>
