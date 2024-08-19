@@ -70,6 +70,7 @@
 	</form>
   </div>
 	<script type="text/javascript">
+		import { BREVO_API_KEY } from './env';
 		const form = document.getElementById('order-form');
 		const submitButton = document.getElementById('submit');
 		const errorMessage = document.getElementById('error-message');
@@ -101,7 +102,6 @@
 			errorMessage.textContent = 'Please enter your address';
 			return;
 		}
-		const apiKey = process.env.BREVO_API_KEY;
 
 		// Send email using Brevo SMTP server
 		fetch('https://api.sendinblue.com/v3/smtp/email', {
