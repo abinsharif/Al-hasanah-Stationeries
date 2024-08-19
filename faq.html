@@ -1,51 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Frequently Asked Questions</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" type="text/css" href="bootstrap.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Frequently Asked Questions</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        #faq {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .faq-item {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Al Hasanah Stationaries">
-		<div class="container-fluid">
-		  <a class="navbar-brand" href="index.html">Al Hasanah Stationaries</a>
-		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		  </button>
-	
-		  <div class="collapse navbar-collapse">
-			<ul class="navbar-nav me-auto mb-2 mb-md-0">
-			  <li class="nav-item">
-				<a class="nav-link btn btn-outline-success" href="index.html">Home</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link btn btn-outline-success" href="form.html">Order</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link btn btn-outline-success" href="faq.html">FAQ</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link btn btn-outline-success" href="./index.html#contacts">Contact</a>
-			  </li>
-			</ul>
-			<form role="search">
-			  <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-			</form>
-		  </div>
-		</div>
-	  </nav>
-	<div id="di">
-		<div class="q" >
-			<p>Question : How to order ?</p>
-			<p>Ans : send a message at 01.. or email at a.binsharif1@gmail.com with your name, class, Address, things you want to buy and amount.</p>
-		</div>
-		<div id="q">
-			<p></p>
-		</div>
-	</div>
-	
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Al Hasanah Stationaries</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="form.html">Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="faq.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contacts">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" id="faq">
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq-item">
+            <h4>How to order?</h4>
+            <p>Send a message on WhatsApp or email us with your name, class, address, the items you want to buy, and their quantity.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>What are the payment methods?</h4>
+            <p>Currently, we accept cash on delivery.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>What is the delivery time?</h4>
+            <p>Orders delivered to school are fulfilled within 2-3 days. Home deliveries may take 4-5 days.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h4>What if my order is incomplete?</h4>
+            <p>If your order is incomplete, please contact us immediately through <a href="index.html#contacts">WhatsApp or email</a>, and we'll resolve the issue.</p>
+        </div>
+    </div>
 </body>
 </html>
