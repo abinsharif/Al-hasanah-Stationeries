@@ -23,14 +23,6 @@ const form = document.getElementById('order-form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-
-    const whatsapp = formData.get('whatsapp');
-    const email = formData.get('email');
-
-    if (!whatsapp && !email) {
-        return showError('Please provide at least one contact method: WhatsApp or Email');
-    }
-
     const products = formData.getAll('product[]');
     const amounts = formData.getAll('amount[]');
     const emailData = [];
@@ -78,13 +70,12 @@ form.addEventListener('submit', (e) => {
         Class: ${formData.get('class')}
         Address: ${formData.get('address')}
         Delivery: ${formData.get('delivery')}
-        Contact: ${whatsapp ? 'WhatsApp: ' + whatsapp : 'Email: ' + email}
         Order: 
         ${emailData.join('\n')}
         Total: ${total}tk
     `;
 
-    emailjs.init('W66WdGOeoyfvsPaef');
+    // Send email using EmailJS
     emailjs.send('service_5iqtwke', 'template_5jc3atl', {
         name: formData.get('name'),
         message: emailContent,
