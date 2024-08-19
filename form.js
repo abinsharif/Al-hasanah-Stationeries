@@ -23,6 +23,14 @@ const form = document.getElementById('order-form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(form);
+
+    const whatsapp = formData.get('whatsapp');
+    const email = formData.get('email');
+
+    if (!whatsapp && !email) {
+        return showError('Please provide at least one contact method: WhatsApp or Email');
+    }
+
     const products = formData.getAll('product[]');
     const amounts = formData.getAll('amount[]');
     const emailData = [];
@@ -65,21 +73,17 @@ form.addEventListener('submit', (e) => {
         emailData.push(`${products[i]} x${amount} = ${price * amount}tk`);
     }
 
-    const emailContent = `
-        Name: ${formData.get('name')}
-        Class: ${formData.get('class')}
-        Address: ${formData.get('address')}
-        Delivery: ${formData.get('delivery')}
-        Order: 
-        ${emailData.join('\n')}
-        Total: ${total}tk
-    `;
+    const emailContent = emailData.join('\n');
 
-    // Send email using EmailJS
+    emailjs.init('W66WdGOeoyfvsPaef');
     emailjs.send('service_5iqtwke', 'template_5jc3atl', {
         name: formData.get('name'),
-        message: emailContent,
-        email: 'a.binsharif1@gmail.com'
+        class: formData.get('class'),
+        address: formData.get('address'),
+        delivery: formData.get('delivery'),
+        contact: whatsapp ? `WhatsApp: ${whatsapp}` : `Email: ${email}`,
+        order: emailContent,
+        total: total
     }).then(() => {
         alert('Order placed successfully!');
     }).catch((error) => {
