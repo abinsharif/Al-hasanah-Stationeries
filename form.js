@@ -18,8 +18,9 @@ document.getElementById('add-product').addEventListener('click', function() {
         </div>`;
     document.getElementById('products').insertAdjacentHTML('beforeend', productGroup);
 });
-emailjs.init('W66WdGOeoyfvsPaef');
+emailjs.init('vZkHCL9fT2At1M9WE');
 const form = document.getElementById('order-form');
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(form);
