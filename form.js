@@ -18,7 +18,7 @@ document.getElementById('add-product').addEventListener('click', function() {
         </div>`;
     document.getElementById('products').insertAdjacentHTML('beforeend', productGroup);
 });
-
+emailjs.init('W66WdGOeoyfvsPaef');
 const form = document.getElementById('order-form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -75,7 +75,6 @@ form.addEventListener('submit', (e) => {
 
     const emailContent = emailData.join('\n');
 
-    emailjs.init('W66WdGOeoyfvsPaef');
     emailjs.send('service_5iqtwke', 'template_5jc3atl', {
         name: formData.get('name'),
         class: formData.get('class'),
