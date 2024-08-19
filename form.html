@@ -101,13 +101,14 @@
 			errorMessage.textContent = 'Please enter your address';
 			return;
 		}
+		const apiKey = process.env.BREVO_API_KEY;
 
 		// Send email using Brevo SMTP server
 		fetch('https://api.sendinblue.com/v3/smtp/email', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json',
-			'api-key': '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'
+			'api-key': apiKey
 			},
 			body: JSON.stringify({
 			'sender': {
