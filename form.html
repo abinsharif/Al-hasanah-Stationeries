@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+	<!--script defer src="https://pyscript.net/latest/pyscript.js"></script-->
 </head>
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Al Hasanah Stationaries">
@@ -102,14 +103,39 @@
 		}
 
 		// Send email using Brevo SMTP server
-		const xhr = new XMLHttpRequest();
-		xhr.open('POST', 'https://smtpsib-ddee6f22c50b41c2fe155209f75892111664ce6097dae6074671bede5f5408ff-LXJ321ISjKY4ObkH', true);
-		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		xhr.send(`to=a.binsharif1@gmail.com&subject=New+Order&body=Name:+${name}+Class:+${classValue}+Product:+${product}+Amount:+${amount}+Address:+${address}+Delivery:+${delivery}`);
-
-		// Clear form fields
-		form.reset();
-		errorMessage.textContent = '';
+		fetch('https://api.sendinblue.com/v3/smtp/email', {
+			method: 'POST',
+			headers: {
+			'Content-Type': 'application/json',
+			'api-key': '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'
+			},
+			body: JSON.stringify({
+			'sender': {
+				'name': 'Your Name',
+				'email': 'a.binsharif1@gmail.com'
+			},
+			'to': [
+				{
+				'email': 'a.binsharif1@gmail.com',
+				'name': 'Anas Bin Sharif'
+				}
+			],
+			'subject': 'New Order',
+			'htmlContent': `Name: ${name}<br>Class: ${classValue}<br>Product: ${product}<br>Amount: ${amount}<br>Address: ${address}<br>Delivery: ${delivery}`
+			})
+		})
+		.then((response) => {
+			if (response.ok) {
+			alert('Email sent successfully!');
+			form.reset();
+			errorMessage.textContent = '';
+			} else {
+			errorMessage.textContent = 'Error sending email';
+			}
+		})
+		.catch((error) => {
+			console.error (error);
+		});
 		});
 	</script>
 </body>
