@@ -1,3 +1,6 @@
+import { db } from './firebase.js';
+import { collection, addDoc } from 'firebase/firestore';
+
 window.onload = function() {
     document.getElementById('add-product').addEventListener('click', function() {
         let productGroup = `
@@ -34,7 +37,6 @@ window.onload = function() {
             }else {
                 return showError('');
             }
-
             const products = formData.getAll('product[]');
             const amounts = formData.getAll('amount[]');
             const emailData = [];
@@ -93,6 +95,26 @@ window.onload = function() {
                 console.error('Error sending email:', error);
                 alert('Failed to send order: ' + error);
             });
+            const name = formData.get('name');
+            const classValue = formData.get('class');
+            const products = formData.getAll('product[]');
+            const amounts = formData.getAll('amount[]');
+
+            // Save to Firestore
+            try {
+                await addDoc(collection(db, "orders"), {
+                    name,
+                    class: classValue,
+                    products,
+                    amounts,
+                    timestamp: new Date()
+                });
+
+                alert('Order successfully placed!');
+            } catch (error) {
+                console.error("Error adding order: ", error);
+                alert('Failed to place order. Please try again.');
+            }
         });
 
         function showError(message) {

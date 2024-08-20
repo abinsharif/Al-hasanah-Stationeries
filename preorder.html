@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-order - Al Hasanah Stationaries</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Al Hasanah Stationaries</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="form.html">Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faq.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacts">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="preorder.html">Pre Order</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="mt-5">Pre-Order Form</h1>
+        <form id="preorder-form" class="mt-3">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="class" class="form-label">Class</label>
+                <input type="number" class="form-control" id="class" name="class" min="1" max="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="preorder-products" class="form-label">Pre-Order Products</label>
+                <select class="form-select" id="preorder-products" name="preorder-products[]" multiple required>
+                    <option value="Glue Guns & Glue Sticks">Glue Guns & Glue Sticks</option>
+                    <option value="Color Pencils">Color Pencils</option>
+                    <option value="Water Color">Water Color</option>
+                    <option value="Papers (Art, Color & White)">Papers (Art, Color & White)</option>
+                    <option value="Glue">Glue</option>
+                    <option value="Rulers">Rulers</option>
+                    <option value="Anticutters">Anticutters</option>
+                    <option value="Scissors">Scissors</option>
+                    <option value="Color Pens">Color Pens</option>
+                    <option value="Sign Pens">Sign Pens</option>
+                    <option value="Tapes (Transparent, Double-Sided & Color)">Tapes (Transparent, Double-Sided & Color)</option>
+                    <option value="Cardboard">Cardboard</option>
+                    <option value="Markers & Highliters">Markers & Highliters</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Pre-Order</button>
+        </form>
+        <div id="message" class="mt-3"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/firebase@9.6.10/firebase-app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/firebase@9.6.10/firebase-firestore.js"></script>
+    <script src="firebase.js"></script>
+    <script src="preorder.js"></script>
+</body>
+</html>
