@@ -1,1 +1,1 @@
-This is the online shop of Deen Stationaries .
+This is the online shop of Al Hasanah Stationaries .
