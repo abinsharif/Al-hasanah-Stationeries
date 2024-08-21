@@ -1,3 +1,6 @@
+import { db } from './firebase.js';
+import { collection, addDoc } from 'firebase/firestore';
+
 document.getElementById('add-product').addEventListener('click', function() {
     let productGroup = `
         <div class="row mb-2">
@@ -21,7 +24,7 @@ document.getElementById('add-product').addEventListener('click', function() {
 emailjs.init('vZkHCL9fT2At1M9WE');
 const form = document.getElementById('order-form');
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
     const whatsapp = formData.get('whatsapp');
@@ -83,6 +86,28 @@ form.addEventListener('submit', (e) => {
     }).catch((error) => {
         alert('Failed to send order: ' + error);
     });
+
+     e.preventDefault();
+
+    const name = formData.get('name');
+    const classValue = formData.get('class');
+
+    // Save to Firestore
+    try {
+        await addDoc(collection(db, "orders"), {
+            name,
+            class: classValue,
+            products,
+            amounts,
+            timestamp: new Date()
+        });
+
+        alert('Order successfully placed!');
+    } catch (error) {
+        console.error("Error adding order: ", error);
+        alert('Failed to place order. Please try again.');
+    }
+
 });
 function showError(message) {
     document.getElementById('error-message').textContent = message;
