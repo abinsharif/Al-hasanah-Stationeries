@@ -1,18 +1,15 @@
-import { db } from './firebase.js';
-import { collection, addDoc } from 'firebase/firestore';
-
 document.getElementById('add-product').addEventListener('click', function() {
     let productGroup = `
         <div class="row mb-2">
             <div class="col-md-8">
                 <select class="form-select" name="product[]" required>
-                    <option value="Matador High-School Pen">Matador High-School Pen - 5tk</option>
+                    <option value="Matador High-School Pen">Matador High-School Pen - 6tk</option>
                     <option value="Fresh All-All-Rounder Pen">Fresh All-All-Rounder Pen - 10tk</option>
-                    <option value="Matador i-teen Rio Pencil">Matador i-teen Rio Pencil - 10tk</option>
+                    <option value="Matador i-teen Rio Pencil">Matador i-teen Rio Pencil - 12tk</option>
                     <option value="Matador i-teen Erasers">Matador i-teen Erasers - 10tk</option>
                     <option value="Matador i-teen Sharpners (Small)">Matador i-teen Sharpners (Small) - 10tk</option>
-                    <option value="Exercise Book (Grade A)">Exercise Book (Grade A) - 100tk</option>
-                    <option value="Exercise Book (Grade B)">Exercise Book (Grade B) - 90tk</option>
+                    <option value="Exercise Book (Grade A)">Exercise Book (Grade A) - 90tk</option>
+                    <option value="Exercise Book (Grade B)">Exercise Book (Grade B) - 75tk</option>
                 </select>
             </div>
             <div class="col-md-4">
@@ -42,7 +39,7 @@ form.addEventListener('submit', async (e) => {
         switch (products[i]) {
             case "Matador High-School Pen":
                 if (amount > 12) return showError('Maximum 12 pens allowed');
-                price = 5;
+                price = 6;
                 break;
             case "Fresh All-All-Rounder Pen":
                 if (amount > 12) return showError('Maximum 12 pens allowed');
@@ -50,7 +47,7 @@ form.addEventListener('submit', async (e) => {
                 break;
             case "Matador i-teen Rio Pencil":
                 if (amount > 12) return showError('Maximum 12 pencils allowed');
-                price = 10;
+                price = 12;
                 break;
             case "Matador i-teen Erasers":
                 if (amount > 6) return showError('Maximum 6 erasers allowed');
@@ -62,11 +59,11 @@ form.addEventListener('submit', async (e) => {
                 break;
             case "Exercise Book (Grade A)":
                 if (amount > 5) return showError('Maximum 5 Grade A exercise books allowed');
-                price = 100;
+                price = 90;
                 break;
             case "Exercise Book (Grade B)":
                 if (amount > 5) return showError('Maximum 5 Grade B exercise books allowed');
-                price = 90;
+                price = 75;
                 break;
         }
         total += price * amount;
@@ -82,6 +79,7 @@ form.addEventListener('submit', async (e) => {
         order: emailContent,
         total: total
     }).then(() => {
+        showError('');
         alert('Order placed successfully!');
     }).catch((error) => {
         alert('Failed to send order: ' + error);
@@ -89,24 +87,6 @@ form.addEventListener('submit', async (e) => {
 
      e.preventDefault();
 
-    const name = formData.get('name');
-    const classValue = formData.get('class');
-
-    // Save to Firestore
-    try {
-        await addDoc(collection(db, "orders"), {
-            name,
-            class: classValue,
-            products,
-            amounts,
-            timestamp: new Date()
-        });
-
-        alert('Order successfully placed!');
-    } catch (error) {
-        console.error("Error adding order: ", error);
-        alert('Failed to place order. Please try again.');
-    }
 
 });
 function showError(message) {
