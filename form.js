@@ -54,7 +54,7 @@ function calculateTotal() {
 
 // Attach change event to initial form elements
 attachChangeEvent();
-emailjs.init(secret.PRIVATE_KEY_EMAILJS);
+emailjs.init("SglXZfGv2oP3nL_cG");
 const form = document.getElementById('order-form');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
