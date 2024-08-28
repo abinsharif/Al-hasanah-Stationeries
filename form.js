@@ -54,8 +54,11 @@ function calculateTotal() {
 
 // Attach change event to initial form elements
 attachChangeEvent();
+
+const form = document.getElementById('order-form');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const formData = new FormData(form);
     const whatsapp = formData.get('whatsapp');
     const email = formData.get('email');
     if (!whatsapp && !email) {
@@ -121,6 +124,7 @@ form.addEventListener('submit', async (e) => {
     }).catch((error) => {
         alert('Failed to send order: ' + error);
     });
+    calculateTotal();
 });
 
 function showError(message) {
