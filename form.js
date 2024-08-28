@@ -4,12 +4,12 @@ document.getElementById('add-product').addEventListener('click', function() {
             <div class="col-md-8">
                 <select class="form-select" name="product[]" required>
                     <option value="Matador High-School Pen" data-price="6">Matador High-School Pen - 6tk</option>
-                    <option value="Fresh All-All-Rounder Pen" data-price="10">Fresh All-All-Rounder Pen - 10tk</option>
+                    <option value="Fresh All-Rounder Pen" data-price="10">Fresh All-Rounder Pen - 10tk</option>
                     <option value="Doms Fusion Pencil" data-price="15">Doms Fusion Pencil - 15tk</option>
                     <option value="Matador i-teen Rio Pencil" data-price="12">Matador i-teen Rio Pencil - 12tk</option>
                     <option value="Petra Pencil" data-price="10">Petra Pencil - 10tk</option>
                     <option value="1 Packet Highschool Pen (12x)" data-price="70">1 Packet Highschool Pen (12x) - 70tk</option>
-                    <option value="1 Box Doms Fusion" data-price="150">1 Box Doms Fusion - 150tk</option>
+                    <option value="1 Box Doms Fusion(10x with erasener & 15cm ruler)" data-price="150">1 Box Doms Fusion - 150tk</option>
                     <option value="Matador i-teen Erasers" data-price="10">Matador i-teen Erasers - 10tk</option>
                     <option value="Matador i-teen Sharpners (Small)" data-price="10">Matador i-teen Sharpners (Small) - 10tk</option>
                     <option value="Exercise Book (Grade A)" data-price="90">Exercise Book (Grade A) - 90tk</option>
@@ -54,7 +54,7 @@ function calculateTotal() {
 
 // Attach change event to initial form elements
 attachChangeEvent();
-emailjs.init('vZkHCL9fT2At1M9WE');
+emailjs.init(secrets.PRIVATE_KEY_EMAILJS);
 const form = document.getElementById('order-form');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -73,18 +73,26 @@ form.addEventListener('submit', async (e) => {
         let price = 0;
         switch (products[i]) {
             case "Matador High-School Pen":
-            case "Fresh All-All-Rounder Pen":
+                if (amount > 11) return showError('Maximum 11 High-School Pens allowed');
+                price = 6;
+            case "Fresh All-Rounder Pen":
+                if (amount > 11) return showError('Maximum 11 All-Rounder Pens allowed');
+                price = 10;
             case "Matador i-teen Rio Pencil":
+                if (amount > 11) return showError('Maximum 11 i-teen Rio Pencils allowed');
+                price = 12;
             case "Petra Pencil":
+                if (amount > 11) return showError('Maximum 11 Petra Pencils allowed');
+                price = 10;
             case "Doms Fusion Pencil":
-                if (amount > 11) return showError('Maximum 11 individual items allowed');
-                price = products[i].includes('High-School Pen') ? 6 : products[i].includes('Fresh') ? 10 : products[i].includes('Doms Fusion') ? 15 : products[i].includes('Rio') ? 12 : 10;
+                if (amount > 11) return showError('Maximum 9 Doms Pencils allowed');
+                price = 15;
                 break;
             case "1 Packet Highschool Pen (12x)":
                 if (amount > 2) return showError('Maximum 2 boxes allowed');
                 price = 70;
                 break;
-            case "1 Box Doms Fusion":
+            case "1 Box Doms Fusion(With erasner and ruler)":
                 if (amount > 2) return showError('Maximum 2 boxes allowed');
                 price = 150;
                 break;
