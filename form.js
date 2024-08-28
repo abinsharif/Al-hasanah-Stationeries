@@ -7,7 +7,7 @@ document.getElementById('add-product').addEventListener('click', function() {
                     <option value="Fresh All-Rounder Pen" data-price="10">Fresh All-Rounder Pen - 10tk</option>
                     <option value="Doms Fusion Pencil" data-price="15">Doms Fusion Pencil - 15tk</option>
                     <option value="Matador i-teen Rio Pencil" data-price="12">Matador i-teen Rio Pencil - 12tk</option>
-                    <option value="Petra Pencil" data-price="10">Petra Pencil - 10tk</option>
+                    <option value="Petra Pencil" data-price="12">Petra Pencil - 12tk</option>
                     <option value="1 Packet Highschool Pen (12x)" data-price="70">1 Packet Highschool Pen (12x) - 70tk</option>
                     <option value="1 Box Doms Fusion(10x with erasener & 15cm ruler)" data-price="150">1 Box Doms Fusion - 150tk</option>
                     <option value="Matador i-teen Erasers" data-price="10">Matador i-teen Erasers - 10tk</option>
@@ -21,7 +21,7 @@ document.getElementById('add-product').addEventListener('click', function() {
             </div>
         </div>`;
     document.getElementById('products').insertAdjacentHTML('beforeend', productGroup);
-    attachChangeEvent();
+    attachChangeEvent(); // Ensure new elements get the change event for calculation
 });
 
 function attachChangeEvent() {
@@ -54,7 +54,9 @@ function calculateTotal() {
 
 // Attach change event to initial form elements
 attachChangeEvent();
+
 emailjs.init("SglXZfGv2oP3nL_cG");
+
 const form = document.getElementById('order-form');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -64,58 +66,24 @@ form.addEventListener('submit', async (e) => {
     if (!whatsapp && !email) {
         return showError('Please provide at least one contact method: WhatsApp or Email');
     }
+
+    const productSelects = formData.getAll('product[]');
     const amounts = formData.getAll('amount[]');
     const emailData = [];
     let total = 0;
 
-    for (let i = 0; i < products.length; i++) {
+    for (let i = 0; i < productSelects.length; i++) {
+        const product = document.querySelectorAll('select[name="product[]"]')[i];
         const amount = parseInt(amounts[i]);
-        let price = 0;
-        switch (products[i]) {
-            case "Matador High-School Pen":
-                if (amount > 11) return showError('Maximum 11 High-School Pens allowed');
-                price = 6;
-            case "Fresh All-Rounder Pen":
-                if (amount > 11) return showError('Maximum 11 All-Rounder Pens allowed');
-                price = 10;
-            case "Matador i-teen Rio Pencil":
-                if (amount > 11) return showError('Maximum 11 i-teen Rio Pencils allowed');
-                price = 12;
-            case "Petra Pencil":
-                if (amount > 11) return showError('Maximum 11 Petra Pencils allowed');
-                price = 10;
-            case "Doms Fusion Pencil":
-                if (amount > 11) return showError('Maximum 9 Doms Pencils allowed');
-                price = 15;
-                break;
-            case "1 Packet Highschool Pen (12x)":
-                if (amount > 2) return showError('Maximum 2 boxes allowed');
-                price = 70;
-                break;
-            case "1 Box Doms Fusion(With erasner and ruler)":
-                if (amount > 2) return showError('Maximum 2 boxes allowed');
-                price = 150;
-                break;
-            case "Matador i-teen Erasers":
-                if (amount > 6) return showError('Maximum 6 erasers allowed');
-                price = 10;
-                break;
-            case "Matador i-teen Sharpners (Small)":
-                if (amount > 4) return showError('Maximum 4 sharpeners allowed');
-                price = 10;
-                break;
-            case "Exercise Book (Grade A)":
-                if (amount > 5) return showError('Maximum 5 Grade A exercise books allowed');
-                price = 90;
-                break;
-            case "Exercise Book (Grade B)":
-                if (amount > 5) return showError('Maximum 5 Grade B exercise books allowed');
-                price = 75;
-                break;
+        const price = parseInt(product.options[product.selectedIndex].getAttribute('data-price'));
+
+        // Ensure price and amount are valid
+        if (!isNaN(amount) && amount > 0) {
+            total += price * amount;
+            emailData.push(`${product.options[product.selectedIndex].text.split(' - ')[0]} x${amount} = ${price * amount}tk`);
         }
-        total += price * amount;
-        emailData.push(`${products[i]} x${amount} = ${price * amount}tk`);
     }
+
     const emailContent = emailData.join('\n');
 
     emailjs.send('service_5iqtwke', 'template_5jc3atl', {
@@ -132,7 +100,6 @@ form.addEventListener('submit', async (e) => {
     }).catch((error) => {
         alert('Failed to send order: ' + error);
     });
-    calculateTotal();
 });
 
 function showError(message) {
