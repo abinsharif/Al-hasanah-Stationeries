@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .product-image {
+            width: 80px;
+            height: auto;
+        }
+        .filter-section {
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Al Hasanah Stationeries</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="form.html">Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faq.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contacts">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="preorder.html">Pre-order</a>
+                    </li>
+                    <li class="nav-item active"  aria-current="page">
+                        <a class="nav-link active" aria-current="page" href="products.html">Products</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <!-- Filter Section -->
+            <div class="col-md-3">
+                <div class="filter-section">
+                    <h5>Filter by Price</h5>
+                    <label for="min-price">Min Price (tk)</label>
+                    <input type="number" class="form-control mb-2" id="min-price" placeholder="0">
+                    <label for="max-price">Max Price (tk)</label>
+                    <input type="number" class="form-control mb-2" id="max-price" placeholder="500">
+                    <button id="filter-price" class="btn btn-primary w-100">Filter</button>
+                </div>
+            </div>
+            <!-- Products Section -->
+            <div class="col-md-9">
+                <div class="mb-3">
+                    <input type="text" id="search-bar" class="form-control" placeholder="Search products...">
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price (tk)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table">
+                        <!-- Product Rows will be added dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { image: 'pencil1.jpg', name: 'Doms Fusion Pencil', price: 15 },
+            { image: 'pencil2.jpg', name: 'Matador i-teen Rio Pencil', price: 12 },
+            { image: 'pencil3.jpg', name: 'Petra Pencil', price: 10 },
+            { image: 'pen1.jpg', name: 'Matador High-School Pen', price: 6 },
+            { image: 'pen2.jpg', name: 'Fresh All-Rounder Pen', price: 10 },
+            { image: 'eraser.jpg', name: 'Matador i-teen Erasers', price: 10 },
+            { image: 'sharpner.jpg', name: 'Matador i-teen Sharpners (Small)', price: 10 },
+            { image: 'notebookA.jpg', name: 'Exercise Book (Grade A)', price: 90 },
+            { image: 'notebookB.jpg', name: 'Exercise Book (Grade B)', price: 75 },
+            { image: 'penPacket.jpg', name: '1 Packet Highschool Pen (12x)', price: 70 },
+            { image: 'domsBox.jpg', name: '1 Box Doms Fusion (10x with eraser & ruler)', price: 150 }
+        ];
+
+        function displayProducts(filteredProducts) {
+            const productsTable = document.getElementById('products-table');
+            productsTable.innerHTML = ''; // Clear previous rows
+
+            filteredProducts.forEach(product => {
+                const row = `
+                    <tr>
+                        <td><img src="${product.image}" alt="${product.name}" class="product-image"></td>
+                        <td>${product.name}</td>
+                        <td>${product.price}</td>
+                    </tr>
+                `;
+                productsTable.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+            const minPrice = parseInt(document.getElementById('min-price').value) || 0;
+            const maxPrice = parseInt(document.getElementById('max-price').value) || Infinity;
+
+            const filteredProducts = products.filter(product => {
+                return product.name.toLowerCase().includes(searchTerm) &&
+                       product.price >= minPrice &&
+                       product.price <= maxPrice;
+            });
+
+            displayProducts(filteredProducts);
+        }
+
+        // Initial Display of Products
+        displayProducts(products);
+
+        // Event Listeners
+        document.getElementById('search-bar').addEventListener('input', filterProducts);
+        document.getElementById('filter-price').addEventListener('click', filterProducts);
+    </script>
+</body>
+</html>
