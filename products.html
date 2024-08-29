@@ -92,20 +92,20 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.js"></script>
     <script>
         const products = [
-            { image: 'pencil1.jpg', name: 'Doms Fusion Pencil', price: 15 },
-            { image: 'pencil2.jpg', name: 'Matador i-teen Rio Pencil', price: 12 },
-            { image: 'pencil3.jpg', name: 'Petra Pencil', price: 12 },
-            { image: 'pen1.jpg', name: 'Matador High-School Pen', price: 6 },
-            { image: 'pen2.jpg', name: 'Fresh All-Rounder Pen', price: 10 },
-            { image: 'eraser.jpg', name: 'Matador i-teen Erasers', price: 10 },
-            { image: 'sharpner.jpg', name: 'Matador i-teen Sharpners (Small)', price: 10 },
-            { image: 'notebookA.jpg', name: 'Exercise Book (Grade A)', price: 90 },
-            { image: 'notebookB.jpg', name: 'Exercise Book (Grade B)', price: 75 },
-            { image: 'penPacket.jpg', name: '1 Packet Highschool Pen (12x)', price: 70 },
-            { image: 'domsBox.jpg', name: '1 Box Doms Fusion (10x with eraser & ruler)', price: 150 }
+            { image: 'd.jpg', name: 'Doms Fusion Pencil', price: 15, link: 'pencils.html' },
+            { image: '5.jpg', name: 'Matador i-teen Rio Pencil', price: 12, link: 'pencils.html' },
+            { image: 'a.jpg', name: 'Petra Pencil', price: 12, link: 'pencils.html' },
+            { image: '21.jpg', name: 'Matador High-School Pen', price: 6, link: 'pens.html' },
+            { image: '24.jpg', name: 'Fresh All-Rounder Pen', price: 10, link: 'pens.html' },
+            { image: '7.jpg', name: 'Matador i-teen Erasers', price: 10, link: 'erasers.html' },
+            { image: '22.jpg', name: 'Matador i-teen Sharpners (Small)', price: 10, link: 'sharpeners.html' },
+            { image: 'notebookA.jpg', name: 'Exercise Book (Grade A)', price: 90, link: 'notebooks.html' },
+            { image: 'notebookB.jpg', name: 'Exercise Book (Grade B)', price: 75, link: 'notebooks.html' },
+            { image: '15.jpg', name: '1 Packet Highschool Pen (12x)', price: 70, link: 'pens.html' },
+            { image: 'domsBox.jpg', name: '1 Box Doms Fusion (10x with eraser & ruler)', price: 150, link: 'pencils.html' }
         ];
 
         function displayProducts(filteredProducts) {
@@ -115,8 +115,8 @@
             filteredProducts.forEach(product => {
                 const row = `
                     <tr>
-                        <td><img src="${product.image}" alt="${product.name}" class="product-image"></td>
-                        <td>${product.name}</td>
+                        <td><img src="./Images/${product.image}" alt="${product.name}" class="product-image"></td>
+                        <td><a class="link" href = ./items/${product.link}>${product.name}</a></td>
                         <td>${product.price}</td>
                     </tr>
                 `;

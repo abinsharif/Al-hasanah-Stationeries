@@ -61,11 +61,27 @@ const form = document.getElementById('order-form');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
+
+    // Validate Name
+    const name = formData.get('name');
+    if (!/^[a-zA-Z]+ [a-zA-Z]+/.test(name) || name.length < 3) {
+        return showError('Name must contain at least 3 letters and one space');
+    }
+
+    // Validate Address
+    const address = formData.get('address');
+    if (address.length < 20 || (address.match(/ /g) || []).length < 2) {
+        return showError('Address must be longer than 20 characters and contain more than 2 spaces');
+    }
+
     const whatsapp = formData.get('whatsapp');
     const email = formData.get('email');
     if (!whatsapp && !email) {
         return showError('Please provide at least one contact method: WhatsApp or Email');
     }
+
+    // Track total quantities of each product
+    const productCounts = {};
 
     const productSelects = formData.getAll('product[]');
     const amounts = formData.getAll('amount[]');
@@ -75,12 +91,55 @@ form.addEventListener('submit', async (e) => {
     for (let i = 0; i < productSelects.length; i++) {
         const product = document.querySelectorAll('select[name="product[]"]')[i];
         const amount = parseInt(amounts[i]);
+        const productName = product.options[product.selectedIndex].value;
         const price = parseInt(product.options[product.selectedIndex].getAttribute('data-price'));
+
+        if (!productCounts[productName]) {
+            productCounts[productName] = 0;
+        }
+        productCounts[productName] += amount;
+
+        // Validate total quantities
+        switch (productName) {
+            case "Matador High-School Pen":
+                if (productCounts[productName] > 11) return showError('Maximum 11 High-School Pens allowed');
+                break;
+            case "Fresh All-Rounder Pen":
+                if (productCounts[productName] > 11) return showError('Maximum 11 All-Rounder Pens allowed');
+                break;
+            case "Matador i-teen Rio Pencil":
+                if (productCounts[productName] > 11) return showError('Maximum 11 i-teen Rio Pencils allowed');
+                break;
+            case "Petra Pencil":
+                if (productCounts[productName] > 6) return showError('Maximum 6 Petra Pencils allowed');
+                break;
+            case "Doms Fusion Pencil":
+                if (productCounts[productName] > 9) return showError('Maximum 9 Doms Pencils allowed');
+                break;
+            case "1 Packet Highschool Pen (12x)":
+                if (productCounts[productName] > 2) return showError('Maximum 2 packets allowed');
+                break;
+            case "1 Box Doms Fusion(With erasner and ruler)":
+                if (productCounts[productName] > 2) return showError('Maximum 2 boxes allowed');
+                break;
+            case "Matador i-teen Erasers":
+                if (productCounts[productName] > 6) return showError('Maximum 6 erasers allowed');
+                break;
+            case "Matador i-teen Sharpners (Small)":
+                if (productCounts[productName] > 4) return showError('Maximum 4 sharpeners allowed');
+                break;
+            case "Exercise Book (Grade A)":
+                if (productCounts[productName] > 5) return showError('Maximum 5 Exercise books allowed');
+                break;
+            case "Exercise Book (Grade B)":
+                if (productCounts[productName] > 5) return showError('Maximum 5 Exercise books allowed');
+                break;
+        }
 
         // Ensure price and amount are valid
         if (!isNaN(amount) && amount > 0) {
             total += price * amount;
-            emailData.push(`${product.options[product.selectedIndex].text.split(' - ')[0]} x${amount} = ${price * amount}tk`);
+            emailData.push(`${productName} x${amount} = ${price * amount}tk`);
         }
     }
 
