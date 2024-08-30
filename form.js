@@ -70,8 +70,8 @@ form.addEventListener('submit', async (e) => {
 
     // Validate Address
     const address = formData.get('address');
-    if (address.length < 20 || (address.match(/ /g) || []).length < 2) {
-        return showError('Address must be longer than 20 characters and contain more than 2 spaces');
+    if (address.length < 20 || (address.match(/ /g) || []).length < 3) {
+        return showError('Address must be longer than 20 characters and contain more than 3 spaces');
     }
 
     const whatsapp = formData.get('whatsapp');
