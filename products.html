@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,29 +11,46 @@
             background-color: #f8f9fa;
             color: #343a40;
         }
+
         .container {
             margin-top: 20px;
         }
+
         .product-image {
-            width: 80px;
-            height: auto;
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
         }
+
         .filter-section {
             padding: 15px;
             background-color: #ffffff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .table-hover tbody tr:hover {
-            background-color: #f1f1f1;
+
+        .product-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .product-card img {
+            margin-bottom: 15px;
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">Al Hasanah Stationeries</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -52,7 +70,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="preorder.html">Pre-order</a>
                     </li>
-                    <li class="nav-item active"  aria-current="page">
+                    <li class="nav-item active" aria-current="page">
                         <a class="nav-link active" aria-current="page" href="products.html">Products</a>
                     </li>
                 </ul>
@@ -70,6 +88,20 @@
                     <label for="max-price">Max Price (tk)</label>
                     <input type="number" class="form-control mb-2" id="max-price" placeholder="500">
                     <button id="filter-price" class="btn btn-primary w-100">Filter</button>
+                    <hr>
+                    <h5>Filter by Type</h5>
+                    <div>
+                        <input type="checkbox" id="pencil" value="pencil">
+                        <label for="pencil">Pencil</label><br>
+                        <input type="checkbox" id="eraser" value="eraser">
+                        <label for="eraser">Eraser</label><br>
+                        <input type="checkbox" id="sharpener" value="sharpener">
+                        <label for="sharpener">Sharpener</label><br>
+                        <input type="checkbox" id="exercise-book" value="exercise-book">
+                        <label for="exercise-book">Exercise Book</label><br>
+                        <input type="checkbox" id="pen" value="pen">
+                        <label for="pen">Pen</label>
+                    </div>
                 </div>
             </div>
             <!-- Products Section -->
@@ -77,50 +109,44 @@
                 <div class="mb-3">
                     <input type="text" id="search-bar" class="form-control" placeholder="Search products...">
                 </div>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Price (tk)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="products-table">
-                        <!-- Product Rows will be added dynamically -->
-                    </tbody>
-                </table>
+                <div class="row" id="products-grid">
+                    <!-- Product Cards will be added dynamically -->
+                </div>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.js"></script>
     <script>
         const products = [
-            { image: 'd.jpg', name: 'Doms Fusion Pencil', price: 15, link: 'pencils.html' },
-            { image: '5.jpg', name: 'Matador i-teen Rio Pencil', price: 12, link: 'pencils.html' },
-            { image: 'a.jpg', name: 'Petra Pencil', price: 12, link: 'pencils.html' },
-            { image: '21.jpg', name: 'Matador High-School Pen', price: 6, link: 'pens.html' },
-            { image: '24.jpg', name: 'Fresh All-Rounder Pen', price: 10, link: 'pens.html' },
-            { image: '7.jpg', name: 'Matador i-teen Erasers', price: 10, link: 'erasers.html' },
-            { image: '22.jpg', name: 'Matador i-teen Sharpners (Small)', price: 10, link: 'sharpeners.html' },
-            { image: 'notebookA.jpg', name: 'Exercise Book (Grade A)', price: 90, link: 'notebooks.html' },
-            { image: 'notebookB.jpg', name: 'Exercise Book (Grade B)', price: 75, link: 'notebooks.html' },
-            { image: '15.jpg', name: '1 Packet Highschool Pen (12x)', price: 70, link: 'pens.html' },
-            { image: 'domsBox.jpg', name: '1 Box Doms Fusion (10x with eraser & ruler)', price: 150, link: 'pencils.html' }
+            { image: 'doms.jpg', name: 'Doms Fusion Pencil', price: 15, category: 'pencil', link: 'pencils.html' },
+            { image: '5.jpg', name: 'Matador i-teen Rio Pencil', price: 12, category: 'pencil', link: 'pencils.html' },
+            { image: 'petra.jpg', name: 'Petra Pencil', price: 12, category: 'pencil', link: 'pencils.html' },
+            { image: '21.jpg', name: 'Matador High-School Pen', price: 6, category: 'pen', link: 'pens.html' },
+            { image: '24.jpg', name: 'Fresh All-Rounder Pen', price: 10, category: 'pen', link: 'pens.html' },
+            { image: '7.jpg', name: 'Matador i-teen Erasers', price: 10, category: 'eraser', link: 'erasers.html' },
+            { image: '22.jpg', name: 'Matador i-teen Sharpners (Small)', price: 10, category: 'sharpener', link: 'sharpeners.html' },
+            { image: 'notebookA.jpg', name: 'Exercise Book (Grade A)', price: 90, category: 'exercise-book', link: 'notebooks.html' },
+            { image: 'notebookB.jpg', name: 'Exercise Book (Grade B)', price: 75, category: 'exercise-book', link: 'notebooks.html' },
+            { image: '15.jpg', name: '1 Packet Highschool Pen (12x)', price: 70, category: 'pen', link: 'pens.html' },
+            { image: 'doms.jpg', name: '1 Box Doms Fusion (10x with eraser & ruler)', price: 150, category: 'pencil', link: 'pencils.html' }
         ];
 
         function displayProducts(filteredProducts) {
-            const productsTable = document.getElementById('products-table');
-            productsTable.innerHTML = ''; // Clear previous rows
+            const productsGrid = document.getElementById('products-grid');
+            productsGrid.innerHTML = ''; // Clear previous content
 
             filteredProducts.forEach(product => {
-                const row = `
-                    <tr>
-                        <td><img src="./Images/${product.image}" alt="${product.name}" class="product-image"></td>
-                        <td><a class="link" href = ./items/${product.link}>${product.name}</a></td>
-                        <td>${product.price}</td>
-                    </tr>
+                const card = `
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <img src="./Images/${product.image}" alt="${product.name}" class="product-image">
+                            <h5>${product.name}</h5>
+                            <p>Price: ${product.price} tk</p>
+                            <a href="./items/${product.link}" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
                 `;
-                productsTable.insertAdjacentHTML('beforeend', row);
+                productsGrid.insertAdjacentHTML('beforeend', card);
             });
         }
 
@@ -129,10 +155,17 @@
             const minPrice = parseInt(document.getElementById('min-price').value) || 0;
             const maxPrice = parseInt(document.getElementById('max-price').value) || Infinity;
 
+            // Filter by categories selected
+            const categories = [];
+            document.querySelectorAll('.filter-section input[type="checkbox"]:checked').forEach(checkbox => {
+                categories.push(checkbox.value);
+            });
+
             const filteredProducts = products.filter(product => {
                 return product.name.toLowerCase().includes(searchTerm) &&
-                       product.price >= minPrice &&
-                       product.price <= maxPrice;
+                    product.price >= minPrice &&
+                    product.price <= maxPrice &&
+                    (categories.length === 0 || categories.includes(product.category));
             });
 
             displayProducts(filteredProducts);
@@ -144,6 +177,10 @@
         // Event Listeners
         document.getElementById('search-bar').addEventListener('input', filterProducts);
         document.getElementById('filter-price').addEventListener('click', filterProducts);
+        document.querySelectorAll('.filter-section input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', filterProducts);
+        });
     </script>
 </body>
+
 </html>
