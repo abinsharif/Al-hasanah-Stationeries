@@ -65,13 +65,13 @@ form.addEventListener('submit', async (e) => {
     // Validate Name
     const name = formData.get('name');
     if (!/^[a-zA-Z]+ [a-zA-Z]+/.test(name) || name.length < 3) {
-        return showError('Name must contain at least 3 letters and one space');
+        return showError('Please enter full name.');
     }
 
     // Validate Address
     const address = formData.get('address');
     if (address.length < 20 || (address.match(/ /g) || []).length < 3) {
-        return showError('Address must be full.');
+        return showError('Please enter full address.');
     }
 
     const whatsapp = formData.get('whatsapp');
