@@ -71,7 +71,7 @@ form.addEventListener('submit', async (e) => {
     // Validate Address
     const address = formData.get('address');
     if (address.length < 20 || (address.match(/ /g) || []).length < 3) {
-        return showError('Address must be longer than 20 characters and contain more than 3 spaces');
+        return showError('Address must be full.');
     }
 
     const whatsapp = formData.get('whatsapp');
