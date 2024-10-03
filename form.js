@@ -54,7 +54,14 @@ function calculateTotal() {
 
 // Attach change event to initial form elements
 attachChangeEvent();
-
+// Add event listener to delivery select element
+document.getElementById('delivery').addEventListener('change', function() {
+    if (this.value === 'home') {
+        document.getElementById('delivery-note').style.display = 'block';
+    } else {
+        document.getElementById('delivery-note').style.display = 'none';
+    }
+});
 emailjs.init("SglXZfGv2oP3nL_cG");
 
 const form = document.getElementById('order-form');
@@ -74,10 +81,10 @@ form.addEventListener('submit', async (e) => {
         return showError('Please enter full address.');
     }
 
-    const whatsapp = formData.get('whatsapp');
+    const number = formData.get('number');
     const email = formData.get('email');
-    if (!whatsapp && !email) {
-        return showError('Please provide at least one contact method: WhatsApp or Email');
+    if (!number && !email) {
+        return showError('Please provide at least one contact method: number or Email');
     }
 
     // Track total quantities of each product
@@ -108,7 +115,7 @@ form.addEventListener('submit', async (e) => {
                 if (productCounts[productName] > 11) return showError('Maximum 11 All-Rounder Pens allowed');
                 break;
             case "Matador i-teen Rio Pencil":
-                if (productCounts[productName] > 11) return showError('Maximum 11 i-teen Rio Pencils allowed');
+                if (productCounts[productName] > 12) return showError('Maximum 12 i-teen Rio Pencils allowed');
                 break;
             case "Petra Pencil":
                 if (productCounts[productName] > 6) return showError('Maximum 6 Petra Pencils allowed');
@@ -150,7 +157,7 @@ form.addEventListener('submit', async (e) => {
         class: formData.get('class'),
         address: formData.get('address'),
         delivery: formData.get('delivery'),
-        contact: whatsapp ? `WhatsApp: ${whatsapp}` : `Email: ${email}`,
+        contact: number ? `number: ${number}` : `Email: ${email}`,
         order: emailContent,
         total: total
     }).then(() => {
