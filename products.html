@@ -101,7 +101,9 @@
                         <input type="checkbox" id="exercise-book" value="exercise-book">
                         <label for="exercise-book">Exercise Book</label><br>
                         <input type="checkbox" id="pen" value="pen">
-                        <label for="pen">Pen</label>
+                        <label for="pen">Pen</label><br>
+                        <input type="checkbox" id="offer" value="offer">
+                        <label for="offer">Offer</label>
                     </div>
                 </div>
             </div>
@@ -117,21 +119,8 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.js"></script>
+    <script src="products.js" ></script>
     <script>
-        const products = [
-            { image: 'doms.jpg', name: 'Doms Fusion Pencil', price: 15, category: 'pencil', link: 'pencils.html' },
-            { image: '5.jpg', name: 'Matador i-teen Rio Pencil', price: 12, category: 'pencil', link: 'pencils.html' },
-            { image: 'petra.jpg', name: 'Petra Pencil', price: 12, category: 'pencil', link: 'pencils.html' },
-            { image: '21.jpg', name: 'Matador High-School Pen', price: 6, category: 'pen', link: 'pens.html' },
-            { image: '24.jpg', name: 'Fresh All-Rounder Pen', price: 10, category: 'pen', link: 'pens.html' },
-            { image: '7.jpg', name: 'Matador i-teen Erasers', price: 10, category: 'eraser', link: 'erasers.html' },
-            { image: '22.jpg', name: 'Matador i-teen Sharpners (Small)', price: 10, category: 'sharpener', link: 'sharpeners.html' },
-            { image: 'notebookA.jpg', name: 'Exercise Book (Grade A)', price: 90, category: 'exercise-book', link: 'notebooks.html' },
-            { image: 'notebookB.jpg', name: 'Exercise Book (Grade B)', price: 75, category: 'exercise-book', link: 'notebooks.html' },
-            { image: '15.jpg', name: '1 Packet Highschool Pen (12x)', price: 70, category: 'pen', link: 'pens.html' },
-            { image: 'doms.jpg', name: '1 Box Doms Fusion (10x with eraser & ruler)', price: 150, category: 'pencil', link: 'pencils.html' }
-        ];
-
         function displayProducts(filteredProducts) {
             const productsGrid = document.getElementById('products-grid');
             productsGrid.innerHTML = ''; // Clear previous content

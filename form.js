@@ -10,10 +10,12 @@ document.getElementById('add-product').addEventListener('click', function() {
                     <option value="Petra Pencil" data-price="12">Petra Pencil - 12tk</option>
                     <option value="1 Packet Highschool Pen (12x)" data-price="70">1 Packet Highschool Pen (12x) - 70tk</option>
                     <option value="1 Box Doms Fusion(10x with erasener & 15cm ruler)" data-price="150">1 Box Doms Fusion - 150tk</option>
-                    <option value="Matador i-teen Erasers" data-price="10">Matador i-teen Erasers - 10tk</option>
+                    <option value="Matador i-teen Erasers (Small)" data-price="10">Matador i-teen Erasers (Small)- 10tk</option>
                     <option value="Matador i-teen Sharpners (Small)" data-price="10">Matador i-teen Sharpners (Small) - 10tk</option>
                     <option value="Exercise Book (Grade A)" data-price="90">Exercise Book (Grade A) - 90tk</option>
                     <option value="Exercise Book (Grade B)" data-price="75">Exercise Book (Grade B) - 75tk</option>
+                    <option value="Offer 1" data-price="150">Offer 1</option>
+                    <option value="Offer 2" data-price="160">Offer 2</option>
                 </select>
             </div>
             <div class="col-md-4">
@@ -109,13 +111,13 @@ form.addEventListener('submit', async (e) => {
         // Validate total quantities
         switch (productName) {
             case "Matador High-School Pen":
-                if (productCounts[productName] > 11) return showError('Maximum 11 High-School Pens allowed');
+                if (productCounts[productName] > 11) return showError('Maximum 11 Individual High-School Pens allowed');
                 break;
             case "Fresh All-Rounder Pen":
-                if (productCounts[productName] > 11) return showError('Maximum 11 All-Rounder Pens allowed');
+                if (productCounts[productName] > 12) return showError('Maximum 12 All-Rounder Pens allowed');
                 break;
             case "Matador i-teen Rio Pencil":
-                if (productCounts[productName] > 12) return showError('Maximum 12 i-teen Rio Pencils allowed');
+                if (productCounts[productName] > 12) return showError('Maximum 12 Matador Rio Pencils allowed');
                 break;
             case "Petra Pencil":
                 if (productCounts[productName] > 6) return showError('Maximum 6 Petra Pencils allowed');
@@ -124,16 +126,16 @@ form.addEventListener('submit', async (e) => {
                 if (productCounts[productName] > 9) return showError('Maximum 9 Doms Pencils allowed');
                 break;
             case "1 Packet Highschool Pen (12x)":
-                if (productCounts[productName] > 2) return showError('Maximum 2 packets allowed');
+                if (productCounts[productName] > 2) return showError('Maximum 2 High-School packets allowed');
                 break;
             case "1 Box Doms Fusion(With erasner and ruler)":
-                if (productCounts[productName] > 2) return showError('Maximum 2 boxes allowed');
+                if (productCounts[productName] > 2) return showError('Maximum 2 Doms Fusion boxes allowed');
                 break;
-            case "Matador i-teen Erasers":
-                if (productCounts[productName] > 6) return showError('Maximum 6 erasers allowed');
+            case "Matador i-teen Erasers (Small)":
+                if (productCounts[productName] > 6) return showError('Maximum 6 Erasers allowed');
                 break;
             case "Matador i-teen Sharpners (Small)":
-                if (productCounts[productName] > 4) return showError('Maximum 4 sharpeners allowed');
+                if (productCounts[productName] > 4) return showError('Maximum 4 Sharpeners allowed');
                 break;
             case "Exercise Book (Grade A)":
                 if (productCounts[productName] > 5) return showError('Maximum 5 Exercise books allowed');
@@ -141,8 +143,13 @@ form.addEventListener('submit', async (e) => {
             case "Exercise Book (Grade B)":
                 if (productCounts[productName] > 5) return showError('Maximum 5 Exercise books allowed');
                 break;
+            case "Offer 1":
+                if (productCounts[productName] > 2) return showError('Maximum 2 Offers allowed');
+                break;
+            case "Offer 2":
+                if (productCounts[productName] > 2) return showError('Maximum 2 Offers allowed');
+                break;
         }
-
         // Ensure price and amount are valid
         if (!isNaN(amount) && amount > 0) {
             total += price * amount;
