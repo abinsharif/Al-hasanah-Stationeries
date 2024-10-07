@@ -125,7 +125,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     // Validate Address
-    const address = `${formData.get('flat')} ${formData.get('house')} ${formData.get('road')} ${formData.get('place')}`;
+    const address = `Flat ${formData.get('flat')}, H - ${formData.get('house')}, Rd - ${formData.get('road')}, ${formData.get('place')}`;
 
     const number = formData.get('number');
     const email = formData.get('email');
