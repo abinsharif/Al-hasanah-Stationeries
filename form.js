@@ -5,17 +5,18 @@ document.getElementById('add-product').addEventListener('click', function() {
                 <select class="form-select" name="product[]" required>
                     <option value="Matador High-School Pen" data-price="6">Matador High-School Pen - 6tk</option>
                     <option value="Fresh All-Rounder Pen" data-price="10">Fresh All-Rounder Pen - 10tk</option>
+                    <option value="Fresh Icon Pen" data-price="10">Fresh Icon Pen - 10tk</option>
                     <option value="Doms Fusion Pencil" data-price="15">Doms Fusion Pencil - 15tk</option>
                     <option value="Matador i-teen Rio Pencil" data-price="12">Matador i-teen Rio Pencil - 12tk</option>
                     <option value="Petra Pencil" data-price="12">Petra Pencil - 12tk</option>
                     <option value="1 Packet Highschool Pen (12x)" data-price="70">1 Packet Highschool Pen (12x) - 70tk</option>
-                    <option value="1 Box Doms Fusion(10x with erasener & 15cm ruler)" data-price="150">1 Box Doms Fusion - 150tk</option>
-                    <option value="Matador i-teen Erasers (Small)" data-price="10">Matador i-teen Erasers (Small)- 10tk</option>
-                    <option value="Matador i-teen Sharpners (Small)" data-price="10">Matador i-teen Sharpners (Small) - 10tk</option>
-                    <option value="Exercise Book (Grade A)" data-price="90">Exercise Book (Grade A) - 90tk</option>
-                    <option value="Exercise Book (Grade B)" data-price="75">Exercise Book (Grade B) - 75tk</option>
-                    <option value="Offer 1" data-price="150">Offer 1</option>
-                    <option value="Offer 2" data-price="160">Offer 2</option>
+                    <option value="1 Box Doms Fusion(10x with erasener & 15cm ruler)" data-price="150">1 Box Doms Fusion(10x with erasener & 15cm ruler) - 150tk</option>
+                    <option value="Matador i-teen Erasers (Small)" data-price="10">Matador i-teen Erasers (Small) - 10tk</option>
+                    <option value="Matador i-teen Sharpeners (Small)" data-price="10">Matador i-teen Sharpeners (Small) - 10tk</option>
+                    <option value="Grade A Exercise Book (200pg)" data-price="90">Grade A Exercise Book (200pg) - 90tk</option>
+                    <option value="Grade B Exercise Book (200pg)" data-price="75">Grade B Exercise Book (200pg) - 75tk</option>
+                    <option value="Offer 1" data-price="150">Offer 1 - 150tk</option>
+                    <option value="Offer 2" data-price="160">Offer 2 - 160tk</option>
                 </select>
             </div>
             <div class="col-md-4">
@@ -43,10 +44,19 @@ function calculateTotal() {
         const productPrice = parseInt(select.options[select.selectedIndex].getAttribute('data-price'));
         const amount = parseInt(amounts[index].value);
 
+        // Define the maximum quantity for each product
+        const maxQuantity = getMaxQuantity(productName);
+
+        if (amount > maxQuantity) {
+            alert(`Warning: You can only order up to ${maxQuantity} ${productName}(s).`);
+            amounts[index].value = maxQuantity;
+            amount = maxQuantity;
+        }
+
         if (!isNaN(amount) && amount > 0) {
             const lineTotal = productPrice * amount;
             totalPrice += lineTotal;
-            summary += `${productName} x${amount} = ${lineTotal}tk<br>`;
+            summary += `${productName} - ${productPrice}tk x${amount} = ${lineTotal}tk<br>`;
         }
     });
 
@@ -54,14 +64,51 @@ function calculateTotal() {
     document.getElementById('price-summary').innerHTML = summary;
 }
 
+// Define the maximum quantity for each product
+function getMaxQuantity(productName) {
+    switch (productName) {
+        case "Matador High-School Pen":
+            return 11;
+        case "Fresh All-Rounder Pen":
+            return 24;
+        case "Fresh Icon Pen":
+            return 24;
+        case "Matador i-teen Rio Pencil":
+            return 12;
+        case "Petra Pencil":
+            return 6;
+        case "Doms Fusion Pencil":
+            return 9;
+        case "1 Packet Highschool Pen (12x)":
+            return 3;
+        case "1 Box Doms Fusion(10x with erasener & 15cm ruler)":
+            return 2;
+        case "Matador i-teen Erasers (Small)":
+            return 8;
+        case "Matador i-teen Sharpeners (Small)":
+            return 6;
+        case "Grade A Exercise Book (200pg)":
+            return 5;
+        case "Grade B Exercise Book (200pg)":
+            return 5;
+        case "Offer 1":
+            return 2;
+        case "Offer 2":
+            return 2;
+        default:
+            return 1;
+    }
+}
+
 // Attach change event to initial form elements
 attachChangeEvent();
-// Add event listener to delivery select element
 document.getElementById('delivery').addEventListener('change', function() {
     if (this.value === 'home') {
         document.getElementById('delivery-note').style.display = 'block';
+        document.getElementById('address-group').style.display = 'block';
     } else {
         document.getElementById('delivery-note').style.display = 'none';
+        document.getElementById('address-group').style.display = 'none';
     }
 });
 emailjs.init("SglXZfGv2oP3nL_cG");
@@ -78,10 +125,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     // Validate Address
-    const address = formData.get('address');
-    if (address.length < 20 || (address.match(/ /g) || []).length < 3) {
-        return showError('Please enter full address.');
-    }
+    const address = `${formData.get('flat')} ${formData.get('house')} ${formData.get('road')} ${formData.get('place')}`;
 
     const number = formData.get('number');
     const email = formData.get('email');
@@ -107,49 +151,6 @@ form.addEventListener('submit', async (e) => {
             productCounts[productName] = 0;
         }
         productCounts[productName] += amount;
-
-        // Validate total quantities
-        switch (productName) {
-            case "Matador High-School Pen":
-                if (productCounts[productName] > 11) return showError('Maximum 11 Individual High-School Pens allowed');
-                break;
-            case "Fresh All-Rounder Pen":
-                if (productCounts[productName] > 12) return showError('Maximum 12 All-Rounder Pens allowed');
-                break;
-            case "Matador i-teen Rio Pencil":
-                if (productCounts[productName] > 12) return showError('Maximum 12 Matador Rio Pencils allowed');
-                break;
-            case "Petra Pencil":
-                if (productCounts[productName] > 6) return showError('Maximum 6 Petra Pencils allowed');
-                break;
-            case "Doms Fusion Pencil":
-                if (productCounts[productName] > 9) return showError('Maximum 9 Doms Pencils allowed');
-                break;
-            case "1 Packet Highschool Pen (12x)":
-                if (productCounts[productName] > 2) return showError('Maximum 2 High-School packets allowed');
-                break;
-            case "1 Box Doms Fusion(With erasner and ruler)":
-                if (productCounts[productName] > 2) return showError('Maximum 2 Doms Fusion boxes allowed');
-                break;
-            case "Matador i-teen Erasers (Small)":
-                if (productCounts[productName] > 6) return showError('Maximum 6 Erasers allowed');
-                break;
-            case "Matador i-teen Sharpners (Small)":
-                if (productCounts[productName] > 4) return showError('Maximum 4 Sharpeners allowed');
-                break;
-            case "Exercise Book (Grade A)":
-                if (productCounts[productName] > 5) return showError('Maximum 5 Exercise books allowed');
-                break;
-            case "Exercise Book (Grade B)":
-                if (productCounts[productName] > 5) return showError('Maximum 5 Exercise books allowed');
-                break;
-            case "Offer 1":
-                if (productCounts[productName] > 2) return showError('Maximum 2 Offers allowed');
-                break;
-            case "Offer 2":
-                if (productCounts[productName] > 2) return showError('Maximum 2 Offers allowed');
-                break;
-        }
         // Ensure price and amount are valid
         if (!isNaN(amount) && amount > 0) {
             total += price * amount;
@@ -162,7 +163,7 @@ form.addEventListener('submit', async (e) => {
     emailjs.send('service_5iqtwke', 'template_5jc3atl', {
         name: formData.get('name'),
         class: formData.get('class'),
-        address: formData.get('address'),
+        address: address,
         delivery: formData.get('delivery'),
         contact: number ? `number: ${number}` : `Email: ${email}`,
         order: emailContent,

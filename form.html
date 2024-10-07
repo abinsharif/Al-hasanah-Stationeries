@@ -78,7 +78,7 @@
             </div>
             <div class="mb-3">
                 <label for="class" class="form-label">Class</label>
-                <input type="number" class="form-control" id="class" name="class" min="1" max="10" required>
+                <input type="text" class="form-control" id="class" name="class" required>
             </div>
             <div class="mb-3">
                 <label for="products" class="form-label">Products</label>
@@ -88,17 +88,18 @@
                             <select class="form-select" name="product[]" required>
                                 <option value="Matador High-School Pen" data-price="6">Matador High-School Pen - 6tk</option>
                                 <option value="Fresh All-Rounder Pen" data-price="10">Fresh All-Rounder Pen - 10tk</option>
+                                <option value="Fresh Icon Pen" data-price="10">Fresh Icon Pen - 10tk</option>
                                 <option value="Doms Fusion Pencil" data-price="15">Doms Fusion Pencil - 15tk</option>
                                 <option value="Matador i-teen Rio Pencil" data-price="12">Matador i-teen Rio Pencil - 12tk</option>
                                 <option value="Petra Pencil" data-price="12">Petra Pencil - 12tk</option>
                                 <option value="1 Packet Highschool Pen (12x)" data-price="70">1 Packet Highschool Pen (12x) - 70tk</option>
-                                <option value="1 Box Doms Fusion(10x with erasener & 15cm ruler)" data-price="150">1 Box Doms Fusion - 150tk</option>
-                                <option value="Matador i-teen Erasers" data-price="10">Matador i-teen Erasers - 10tk</option>
-                                <option value="Matador i-teen Sharpners (Small)" data-price="10">Matador i-teen Sharpners (Small) - 10tk</option>
-                                <option value="Exercise Book (Grade A)" data-price="90">Exercise Book (Grade A) - 90tk</option>
-                                <option value="Exercise Book (Grade B)" data-price="75">Exercise Book (Grade B) - 75tk</option>
-                                <option value="Offer 1" data-price="150">Offer 1</option>
-                                <option value="Offer 2" data-price="160">Offer 2</option>
+                                <option value="1 Box Doms Fusion(10x with erasener & 15cm ruler)" data-price="150">1 Box Doms Fusion(10x with erasener & 15cm ruler) - 150tk</option>
+                                <option value="Matador i-teen Erasers (Small)" data-price="10">Matador i-teen Erasers (Small) - 10tk</option>
+                                <option value="Matador i-teen Sharpeners (Small)" data-price="10">Matador i-teen Sharpeners (Small) - 10tk</option>
+                                <option value="Grade A Exercise Book (200pg)" data-price="90">Grade A Exercise Book (200pg) - 90tk</option>
+                                <option value="Grade B Exercise Book (200pg)" data-price="75">Grade B Exercise Book (200pg) - 75tk</option>
+                                <option value="Offer 1" data-price="150">Offer 1 - 150tk</option>
+                                <option value="Offer 2" data-price="160">Offer 2 - 160tk</option>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -111,10 +112,26 @@
             <div class="mb-3">
                 <label class="form-label">Price Summary:</label>
                 <div id="price-summary"></div>
-            </div>            
-            <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" name="address" required >
+            </div>
+            <div class="mb-3" id="address-group" style="display: none;">
+                <label class="form-label">Address</label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="flat" name="flat" placeholder="Flat">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="house" name="house" placeholder="House">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" id="road" name="road" placeholder="Road">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="place" name="place">
+                            <option value="Adabor">Adabor</option>
+                            <option value="Shekhertek">Shekhertek</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="delivery" class="form-label">Where do you want to receive your product?</label>
@@ -122,7 +139,7 @@
                     <option value="school">School</option>
                     <option value="home">Home Delivery</option>
                 </select>
-                <p id="delivery-note" style="display: none;">Note: Home delivery is available within Shekhertek and Adabor only.</p>
+                <p id="delivery-note" style="display: none; color:rgb(197, 0, 0);">Note: Home delivery is completely free beacause it is available within Shekhertek and Adabor only.</p>
             </div>
             <div class="mb-3">
                 <label for="whatsapp" class="form-label">WhatsApp Number</label>
