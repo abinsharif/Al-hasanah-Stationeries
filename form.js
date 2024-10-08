@@ -15,6 +15,8 @@ document.getElementById('add-product').addEventListener('click', function() {
                     <option value="Matador i-teen Sharpeners (Small)" data-price="10">Matador i-teen Sharpeners (Small) - 10tk</option>
                     <option value="Grade A Exercise Book (200pg)" data-price="90">Grade A Exercise Book (200pg) - 90tk</option>
                     <option value="Grade B Exercise Book (200pg)" data-price="75">Grade B Exercise Book (200pg) - 75tk</option>
+                    <option value="Fresh Exercise Book (120pg)" data-price="55">Fresh Exercise Book (120pg) - 55tk</option>
+                    <option value="Fresh Exercise Book (80pg)" data-price="35">Fresh Exercise Book (80pg) - 35tk</option>
                     <option value="Offer 1" data-price="150">Offer 1 - 150tk</option>
                     <option value="Offer 2" data-price="160">Offer 2 - 160tk</option>
                 </select>
@@ -25,11 +27,18 @@ document.getElementById('add-product').addEventListener('click', function() {
         </div>`;
     document.getElementById('products').insertAdjacentHTML('beforeend', productGroup);
     attachChangeEvent(); // Ensure new elements get the change event for calculation
+    calculateTotal();
 });
 
 function attachChangeEvent() {
     document.querySelectorAll('select[name="product[]"], input[name="amount[]"]').forEach(function(el) {
         el.addEventListener('change', calculateTotal);
+    });
+    // Trigger the calculateTotal function when the select elements with name "product[]" are changed
+    document.querySelectorAll('select[name="product[]"]').forEach(function(el) {
+        el.addEventListener('change', function() {
+            calculateTotal();
+        });
     });
 }
 
@@ -95,6 +104,10 @@ function getMaxQuantity(productName) {
             return 2;
         case "Offer 2":
             return 2;
+        case "Fresh Exercise Book (80pg)":
+            return 5;
+        case "Fresh Exercise Book (120pg)":
+            return 5;
         default:
             return 1;
     }
