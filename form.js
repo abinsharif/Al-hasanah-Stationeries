@@ -79,10 +79,8 @@ function getMaxQuantity(productName) {
             return 24;
         case "Fresh Icon Pen":
             return 24;
-        case "Matador i-teen Rio Pencil":
-            return 12;
-        case "Petra Pencil":
-            return 6;
+        //case "Matador i-teen Rio Pencil":
+        //    return 12;
         case "Doms Fusion Pencil":
             return 9;
         case "1 Packet Highschool Pen (12x)":
@@ -94,19 +92,17 @@ function getMaxQuantity(productName) {
         case "Matador i-teen Sharpeners (Small)":
             return 6;
         case "Grade A Exercise Book (200pg)":
-            return 5;
+            return 6;
         case "Grade B Exercise Book (200pg)":
-            return 5;
-        case "Offer 1":
-            return 2;
-        case "Offer 2":
-            return 2;
+            return 6;
+        case "Matador Gel Pen":
+            return 12;
         case "Fresh Exercise Book (80pg)":
-            return 5;
+            return 12;
         case "Fresh Exercise Book (120pg)":
-            return 5;
+            return 12;
         default:
-            return 1;
+            return 12;
     }
 }
 // Function to fetch user stats from ipinfo.io
@@ -197,7 +193,7 @@ form.addEventListener('submit', async (e) => {
         showError('');
         alert('Order placed successfully!');
     }).catch((error) => {
-        alert('Failed to send order: ' + error);
+        alert('Failed to send order: ' + error) + 'Please report the error at the contact.';
     });
 });
 

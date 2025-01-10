@@ -7,11 +7,11 @@ const products = [
     { image: 'icon.jpg', name: 'Fresh Icon Pen', price: 10, category: 'pen', link: 'pens.html' , max: 24},
     { image: '7.jpg', name: 'Matador i-teen Erasers', price: 10, category: 'eraser', link: 'erasers.html' , max: 8},
     { image: '22.jpg', name: 'Matador i-teen Sharpeners (Small)', price: 10, category: 'sharpener', link: 'sharpeners.html', max: 6 },
-    { image: 'ebA.jpg', name: 'Grade A Exercise Book (200pg)', price: 90, category: 'exercise-book', link: 'notebooks.html' , max: 6},
-    { image: 'ebB.jpg', name: 'Grade B Exercise Book (200pg)', price: 75, category: 'exercise-book', link: 'notebooks.html' , max: 6},
-    { image: '120.jpg', name: 'Fresh Exercise Book (120pg)', price: 55, category: 'exercise-book', link: 'notebooks.html', max: 6 },
-    { image: 'fr80.jpg', name: 'Fresh Exercise Book (80pg)', price: 35, category: 'exercise-book', link: 'notebooks.html', max: 6 },
+    { image: 'ebA.jpg', name: 'Grade A Exercise Book (200pg)', price: 90, category: 'exercise-book', link: 'notebooks.html' , max: 12},
+    { image: 'ebB.jpg', name: 'Grade B Exercise Book (200pg)', price: 75, category: 'exercise-book', link: 'notebooks.html' , max: 12},
+    { image: '120.jpg', name: 'Fresh Exercise Book (120pg)', price: 55, category: 'exercise-book', link: 'notebooks.html', max: 12 },
+    { image: 'fr80.jpg', name: 'Fresh Exercise Book (80pg)', price: 35, category: 'exercise-book', link: 'notebooks.html', max: 12 },
     { image: '15.jpg', name: '1 Packet Highschool Pen (12x)', price: 70, category: 'pen', link: 'pens.html' , max: 3},
-    { image: 'doms.jpg', name: '1 Box Doms Fusion (10x with eraser & ruler)', price: 150, category: 'pencil', link: 'pencils.html' , max: 3},
-    { image: 'blugel.png', name: 'Matador Gel Pen', price: 15, category: 'pen', link: 'gelpen.html', max: 4}
+    { image: 'doms.jpg', name: '1 Box Doms Fusion (10x with eraser & ruler)', price: 150, category: 'pencil', link: 'pencils.html' , max: 2},
+    { image: 'blugel.png', name: 'Matador Gel Pen', price: 15, category: 'pen', link: 'gelpen.html', max: 12}
 ];
